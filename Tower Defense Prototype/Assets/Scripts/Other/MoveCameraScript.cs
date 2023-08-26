@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System;
 
 public class MoveCameraScript : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class MoveCameraScript : MonoBehaviour
     private float sensitivity = 20f;
 
     private float prevMouseScrollWheel = 0;
+
+    //For Movement of camera when you are this many pixels away from side of screen
+    private int distanceFromScreenEdge =  (int)(Screen.height * .02f);
 
     // Start is called before the first frame update
     void Start()
@@ -30,19 +34,19 @@ public class MoveCameraScript : MonoBehaviour
 
     private void CameraMovement()
     {
-        if(Input.mousePosition.x < 40 && Input.mousePosition.x > 0 && Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height)
+        if(Input.mousePosition.x < distanceFromScreenEdge && Input.mousePosition.x > 0 && Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height)
         {
             MoveLeft();
         }
-        if (Input.mousePosition.y < 40 && Input.mousePosition.y > 0 && Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width)
+        if (Input.mousePosition.y < distanceFromScreenEdge && Input.mousePosition.y > 0 && Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width)
         {
             MoveDown();
         }  
-        if (Input.mousePosition.x > Screen.width-40 && Input.mousePosition.x < Screen.width && Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height)
+        if (Input.mousePosition.x > Screen.width - distanceFromScreenEdge && Input.mousePosition.x < Screen.width && Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height)
         {
             MoveRight();
         }
-        if (Input.mousePosition.y > Screen.height-40 && Input.mousePosition.y < Screen.height && Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width)
+        if (Input.mousePosition.y > Screen.height - distanceFromScreenEdge && Input.mousePosition.y < Screen.height && Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width)
         {
             MoveUp();
         }
