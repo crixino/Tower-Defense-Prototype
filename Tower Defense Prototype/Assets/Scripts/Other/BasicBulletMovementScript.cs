@@ -6,7 +6,7 @@ public class BasicBulletMovementScript : MonoBehaviour
 {
     private Transform enemy;
     private bool hasTarget = false;
-    private float speed = 10f;
+    private float speed = 15f;
 
     // Start is called before the first frame update
     void Start()

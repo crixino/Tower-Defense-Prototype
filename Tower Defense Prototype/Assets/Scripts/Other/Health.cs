@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Bullet")
+        if(other.tag == "Bullet" && other.gameObject.GetComponent<DamageScript>().getTargetObject() == this.gameObject)
         {
             ModifyHealth((int)other.GetComponent<DamageScript>().getDamage());
             

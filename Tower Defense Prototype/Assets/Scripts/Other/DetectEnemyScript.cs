@@ -11,12 +11,14 @@ public class DetectEnemyScript : MonoBehaviour
 
     private List<Transform> enemyTransforms = new List<Transform>(50);
     private int enemyTransformListCount = 0;
+    private Transform enemyGoal;
 
     private float range = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyGoal = GameObject.FindGameObjectWithTag("Goal").transform;
         troopMovementScript = this.GetComponentInParent<TroopMovementScript>();
         troopManagerScript = this.GetComponentInParent<TroopManagerScript>();
         updateRange();
@@ -57,7 +59,7 @@ public class DetectEnemyScript : MonoBehaviour
             this.GetComponent<ShootScript>().noMoreEnemies();
         }
         else
-            enemyPos = GetClosestEnemy(enemyTransforms, this.transform).gameObject;
+            enemyPos = GetClosestEnemy(enemyTransforms).gameObject;
     }
 
     private void aimAtEnemy()
@@ -66,11 +68,11 @@ public class DetectEnemyScript : MonoBehaviour
         this.GetComponent<ShootScript>().enemyTargeted(enemyPos);
     }
 
-    Transform GetClosestEnemy(List<Transform> enemies, Transform fromThis)
+    Transform GetClosestEnemy(List<Transform> enemies)
     {
         Transform bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = fromThis.position;
+        Vector3 currentPosition = enemyGoal.position;
         foreach (Transform potentialTarget in enemies)
         {
             if (potentialTarget != null)
@@ -93,7 +95,7 @@ public class DetectEnemyScript : MonoBehaviour
         {
             enemyTransforms.Remove(enemy.transform);
             this.enemyTransformListCount--;
-            enemyPos = GetClosestEnemy(enemyTransforms, this.transform).gameObject;
+            enemyPos = GetClosestEnemy(enemyTransforms).gameObject;
         }
         else if (enemyTransformListCount == 1 && enemyPos == enemy)
         {

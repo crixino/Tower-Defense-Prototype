@@ -48,6 +48,7 @@ public class ShootScript : MonoBehaviour
                 bulletObject.transform.localScale = new Vector3(.2f, .2f, .5f);
                 bulletObject.GetComponent<BasicBulletMovementScript>().targetEnemy(enemyTarget.transform);
                 bulletObject.GetComponent<DamageScript>().setDamage(this);
+                bulletObject.GetComponent<DamageScript>().SetTargetObject(enemyTarget);
 
                 yield return new WaitForSeconds(fireRate);
             }

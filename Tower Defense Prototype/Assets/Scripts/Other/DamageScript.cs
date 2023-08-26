@@ -5,6 +5,8 @@ using UnityEngine;
 public class DamageScript : MonoBehaviour
 {
     private float damage = 0;
+    private GameObject targetObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +27,15 @@ public class DamageScript : MonoBehaviour
     public float getDamage()
     {
         return this.damage;
+    }
+
+    public void SetTargetObject(GameObject targetObject)
+    {
+        this.targetObject = targetObject;
+    }
+
+    public GameObject getTargetObject()
+    {
+        return this.targetObject;
     }
 }
