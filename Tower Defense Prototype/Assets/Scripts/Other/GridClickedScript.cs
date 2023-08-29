@@ -28,7 +28,7 @@ public class GridClickedScript : MonoBehaviour
     void Start()
     {
         mainCam = Camera.main;
-        troop = Resources.Load("Prefabs/Troop") as GameObject;
+        //troop = Resources.Load("Prefabs/Troop") as GameObject;
         troopAvailabelUIObject = GameObject.FindGameObjectWithTag("Troop Available UI").gameObject;
     }
 
@@ -136,7 +136,9 @@ public class GridClickedScript : MonoBehaviour
         }
         else
         {
+            Debug.Log("In Tropselectedbutton else statement");
             lastBtnIndex = btnIndex;
+            troop = Resources.Load("Prefabs/" + troopAvailabelUIObject.transform.GetChild(btnIndex).name) as GameObject;
             isTroopSelected = true;
             troopAvailabelUIObject.transform.GetChild(btnIndex).GetComponent<Image>().color = Color.green;
             this.GetComponent<UIManagerScript>().enableCancelTroopSelectionObject();

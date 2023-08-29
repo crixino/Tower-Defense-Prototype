@@ -44,11 +44,46 @@ public class TroopDatabase : MonoBehaviour
                 {"Range", 16f }
             }
             ,"Small Cannon Level 5"),
-            new Troop(0, "Small Cannon Level 5", "This is a cheap turret that shoots a small cannon at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
+            new Troop(4, "Small Cannon Level 5", "This is a cheap turret that shoots a small cannon at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
             {
                 {"Damage", -20f },
                 {"Fire Rate", .9f },
                 {"Range", 18f }
+            }
+            ,"none"),
+            new Troop(5, "Turret Level 1", "This is a cheap turret that shoots rapid fire at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
+            {
+                {"Damage", -3f },
+                {"Fire Rate", 1f },
+                {"Range", 8f }
+            }
+            ,"Turret Level 2"),
+            new Troop(6, "Turret Level 2", "This is a cheap turret that shoots rapid fire at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
+            {
+                {"Damage", -5f },
+                {"Fire Rate", .95f },
+                {"Range", 10f }
+            }
+            ,"Turret Level 3"),
+            new Troop(7, "Turret Level 3", "This is a cheap turret that shoots rapid fire at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
+            {
+                {"Damage", -7f },
+                {"Fire Rate", .9f },
+                {"Range", 14f }
+            }
+            ,"Turret Level 4"),
+            new Troop(8, "Turret Level 4", "This is a cheap turret that shoots rapid fire at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
+            {
+                {"Damage", -10f },
+                {"Fire Rate", .8f },
+                {"Range", 18f }
+            }
+            ,"Turret Level 5"),
+            new Troop(9, "Turret Level 5", "This is a cheap turret that shoots rapid fire at enemies.", "Prefabs/SmallCannonBullet", new Dictionary<string, float>
+            {
+                {"Damage", -14f },
+                {"Fire Rate", .7f },
+                {"Range", 20f }
             }
             ,"none"),
         };

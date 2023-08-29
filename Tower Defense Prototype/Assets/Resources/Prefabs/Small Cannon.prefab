@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 7962083037687760238}
   - component: {fileID: 2160855909301778599}
   m_Layer: 7
-  m_Name: Troop
+  m_Name: Small Cannon
   m_TagString: Troop Sphere Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
