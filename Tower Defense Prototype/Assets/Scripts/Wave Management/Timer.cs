@@ -14,9 +14,13 @@ public class Timer : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI timerText;
+
+    private WaveManager waveManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        waveManager = this.GetComponent<WaveManager>();
         timeLeft = startingTime;
         ResetTimer();
     }
@@ -33,9 +37,11 @@ public class Timer : MonoBehaviour
             }
             else
             {
-                Debug.Log("Time is UP!");
                 timeLeft = 0;
                 TimerOn = false;
+
+                if()
+                waveManager.NextWave();
             }
         }
     }
@@ -63,5 +69,10 @@ public class Timer : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeLeft % 60);
 
         timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    }
+
+    public float GetTime()
+    {
+        return startingTime;
     }
 }
