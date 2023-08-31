@@ -12,12 +12,17 @@ public class WaveUI : MonoBehaviour
     Vector3 increaseValues;
     Vector3 defaultValue;
 
-    int waveIndex = 0;
+    private int waveIndex = 0;
+
+    private int totalWaves;
+
+    private
 
 
     // Start is called before the first frame update
     void Start()
     {
+        totalWaves = waveUIParent.transform.childCount;
         defaultValue = waveUIParent.transform.localPosition;
     }
 
@@ -36,7 +41,7 @@ public class WaveUI : MonoBehaviour
                 waveUIParent.GetComponent<RectTransform>().localPosition -= increaseValues * Time.deltaTime;
             }
 
-            else if(waveUIParent.transform.childCount > waveIndex)
+            else if(totalWaves > waveIndex)
             {
                 UpdateIndex();
                 waveUIParent.GetComponent<RectTransform>().localPosition = defaultValue;
@@ -48,5 +53,10 @@ public class WaveUI : MonoBehaviour
     {
         waveUIParent.transform.GetChild(waveIndex).gameObject.SetActive(false);
         waveIndex++;
+    }
+
+    public int GetWaveCount()
+    {
+        return totalWaves;
     }
 }
