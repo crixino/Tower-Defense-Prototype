@@ -130,19 +130,28 @@ public class GridClickedScript : MonoBehaviour
 
     public void troopSelectedButton(int btnIndex)
     {
-        if (isTroopSelected)
+        if (isTroopSelected && btnIndex == lastBtnIndex)
         {
             troopDeselect();
         }
+        else if (isTroopSelected)
+        {
+            troopDeselect();
+            TroopSelected(btnIndex);
+        }
         else
         {
-            Debug.Log("In Tropselectedbutton else statement");
-            lastBtnIndex = btnIndex;
-            troop = Resources.Load("Prefabs/" + troopAvailabelUIObject.transform.GetChild(btnIndex).name) as GameObject;
-            isTroopSelected = true;
-            troopAvailabelUIObject.transform.GetChild(btnIndex).GetComponent<Image>().color = Color.green;
-            this.GetComponent<UIManagerScript>().enableCancelTroopSelectionObject();
+            TroopSelected(btnIndex);
         }
+    }
+
+    private void TroopSelected(int index)
+    {
+        lastBtnIndex = index;
+        troop = Resources.Load("Prefabs/" + troopAvailabelUIObject.transform.GetChild(index).name) as GameObject;
+        isTroopSelected = true;
+        troopAvailabelUIObject.transform.GetChild(index).GetComponent<Image>().color = Color.green;
+        this.GetComponent<UIManagerScript>().enableCancelTroopSelectionObject();
     }
 
     public void troopDeselect()
