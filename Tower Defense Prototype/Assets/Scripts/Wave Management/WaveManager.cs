@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-<<<<<<< HEAD
-    private WaveUI waveUI;
-    private Timer timerScript;
-=======
     private Timer timer;
     private WaveUI waveUI;
->>>>>>> 69624d517b739dc83532f1d1b3526aec5342ea34
 
     // Start is called before the first frame update
     void Start()
     {
-<<<<<<< HEAD
-        waveUI = this.GetComponent<WaveUI>();
-=======
         timer = this.GetComponent<Timer>();
         waveUI = this.GetComponent<WaveUI>();
 
         waveUI.CalculateWaveUISpeed(timer.GetTime());
->>>>>>> 69624d517b739dc83532f1d1b3526aec5342ea34
     }
 
     // Update is called once per frame
@@ -48,6 +39,4 @@ public class WaveManager : MonoBehaviour
         timer.StartTimer();
         waveUI.StartWaves();
     }
-
-
 }

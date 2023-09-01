@@ -13,11 +13,7 @@ public class WaveUI : MonoBehaviour
     Vector3 increaseValues;
     Vector3 defaultValue;
 
-    private int waveIndex = 0;
-
-    private int totalWaves;
-
-    private
+    int waveIndex = 0;
 
     private float cellSize;
 
@@ -27,7 +23,6 @@ public class WaveUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        totalWaves = waveUIParent.transform.childCount;
         defaultValue = waveUIParent.transform.localPosition;
     }
 
@@ -45,15 +40,6 @@ public class WaveUI : MonoBehaviour
             {
                 waveUIParent.GetComponent<RectTransform>().localPosition -= increaseValues * Time.deltaTime;
             }
-<<<<<<< HEAD
-
-            else if(totalWaves > waveIndex)
-            {
-                UpdateIndex();
-                waveUIParent.GetComponent<RectTransform>().localPosition = defaultValue;
-            }
-=======
->>>>>>> 69624d517b739dc83532f1d1b3526aec5342ea34
         }
 
         /*else if(waveUIParent.transform.childCount > waveIndex)
@@ -68,11 +54,6 @@ public class WaveUI : MonoBehaviour
         waveIndex++;
     }
 
-<<<<<<< HEAD
-    public int GetWaveCount()
-    {
-        return totalWaves;
-=======
     public void NextWaveUI()
     {
         UpdateIndex();
@@ -88,6 +69,5 @@ public class WaveUI : MonoBehaviour
     public void StartWaves()
     {
         startWaves = true;
->>>>>>> 69624d517b739dc83532f1d1b3526aec5342ea34
     }
 }
