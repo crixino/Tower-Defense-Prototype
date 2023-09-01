@@ -7,6 +7,8 @@ public class WaveManager : MonoBehaviour
     private Timer timer;
     private WaveUI waveUI;
 
+    private bool isLastWave = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +40,15 @@ public class WaveManager : MonoBehaviour
         waveUI.CalculateWaveUISpeed(timer.GetTime());
         timer.StartTimer();
         waveUI.StartWaves();
+    }
+
+    public void SetIsLastWave(bool isLastWave)
+    {
+        this.isLastWave = isLastWave;
+    }
+
+    public bool IsLastWave()
+    {
+        return this.isLastWave;
     }
 }

@@ -40,8 +40,8 @@ public class Timer : MonoBehaviour
                 timeLeft = 0;
                 TimerOn = false;
 
-                if()
-                waveManager.NextWave();
+                if(!waveManager.IsLastWave())
+                    waveManager.NextWave();
             }
         }
     }

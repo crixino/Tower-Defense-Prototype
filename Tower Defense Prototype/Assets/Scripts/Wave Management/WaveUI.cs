@@ -24,6 +24,8 @@ public class WaveUI : MonoBehaviour
     void Start()
     {
         defaultValue = waveUIParent.transform.localPosition;
+
+        SetWaveUINumbers();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class WaveUI : MonoBehaviour
     {
         if (startWaves)
         {
-            if (waveUIParent.GetComponent<RectTransform>().localPosition.x > -50)
+            if (waveUIParent.GetComponent<RectTransform>().localPosition.x > -50 && waveIndex + 1 != waveUIParent.transform.childCount)
             {
                 waveUIParent.GetComponent<RectTransform>().localPosition -= increaseValues * Time.deltaTime;
             }
@@ -52,6 +54,8 @@ public class WaveUI : MonoBehaviour
     {
         waveUIParent.transform.GetChild(waveIndex).gameObject.SetActive(false);
         waveIndex++;
+        if (waveIndex + 1 == waveUIParent.transform.childCount)
+            this.GetComponent<WaveManager>().SetIsLastWave(true);
     }
 
     public void NextWaveUI()
@@ -69,5 +73,13 @@ public class WaveUI : MonoBehaviour
     public void StartWaves()
     {
         startWaves = true;
+    }
+
+    private void SetWaveUINumbers()
+    {
+        for(int i = 0; i <  waveUIParent.transform.childCount; i++)
+        {
+            waveUIParent.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text = "" + (i+1);
+        }
     }
 }
