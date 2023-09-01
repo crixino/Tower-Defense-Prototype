@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveUI : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class WaveUI : MonoBehaviour
     private int totalWaves;
 
     private
+
+    private float cellSize;
+
+    private bool startWaves = false;
 
 
     // Start is called before the first frame update
@@ -34,19 +39,27 @@ public class WaveUI : MonoBehaviour
 
     private void MoveUI()
     {
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (startWaves)
         {
             if (waveUIParent.GetComponent<RectTransform>().localPosition.x > -50)
             {
                 waveUIParent.GetComponent<RectTransform>().localPosition -= increaseValues * Time.deltaTime;
             }
+<<<<<<< HEAD
 
             else if(totalWaves > waveIndex)
             {
                 UpdateIndex();
                 waveUIParent.GetComponent<RectTransform>().localPosition = defaultValue;
             }
+=======
+>>>>>>> 69624d517b739dc83532f1d1b3526aec5342ea34
         }
+
+        /*else if(waveUIParent.transform.childCount > waveIndex)
+        {
+            NextWaveUI();
+        }*/
     }
 
     private void UpdateIndex()
@@ -55,8 +68,26 @@ public class WaveUI : MonoBehaviour
         waveIndex++;
     }
 
+<<<<<<< HEAD
     public int GetWaveCount()
     {
         return totalWaves;
+=======
+    public void NextWaveUI()
+    {
+        UpdateIndex();
+        waveUIParent.GetComponent<RectTransform>().localPosition = defaultValue;
+    }
+
+    public void CalculateWaveUISpeed(float seconds)
+    {
+        cellSize = waveUIParent.GetComponent<GridLayoutGroup>().cellSize.x;
+        increaseValues.x = cellSize/seconds;
+    }
+
+    public void StartWaves()
+    {
+        startWaves = true;
+>>>>>>> 69624d517b739dc83532f1d1b3526aec5342ea34
     }
 }
