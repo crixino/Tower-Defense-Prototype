@@ -41,21 +41,15 @@ public class WaveUI : MonoBehaviour
             if (waveUIParent.GetComponent<RectTransform>().localPosition.x > -50 && waveIndex + 1 != waveUIParent.transform.childCount)
             {
                 waveUIParent.GetComponent<RectTransform>().localPosition -= increaseValues * Time.deltaTime;
-            }
+            }else
+                this.GetComponent<WaveManager>().SetIsLastWave(true);
         }
-
-        /*else if(waveUIParent.transform.childCount > waveIndex)
-        {
-            NextWaveUI();
-        }*/
     }
 
     private void UpdateIndex()
     {
         waveUIParent.transform.GetChild(waveIndex).gameObject.SetActive(false);
         waveIndex++;
-        if (waveIndex + 1 == waveUIParent.transform.childCount)
-            this.GetComponent<WaveManager>().SetIsLastWave(true);
     }
 
     public void NextWaveUI()
