@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShootScript : MonoBehaviour
 {
     private TroopManagerScript objectParent;
+    private GameManagerScript gameManagerScript;
 
     private GameObject bullet;
     private IEnumerator coroutine;
@@ -20,6 +21,7 @@ public class ShootScript : MonoBehaviour
     void Start()
     {
         objectParent = this.transform.parent.gameObject.GetComponent<TroopManagerScript>();
+        gameManagerScript = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManagerScript>();
         bulletSpawner = this.transform.parent.parent.GetChild(1);
         bullet = Resources.Load(objectParent.getBulletFilePath()) as GameObject;
 
@@ -42,10 +44,13 @@ public class ShootScript : MonoBehaviour
         {
             if (hasATarget && enemyTarget != null)
             {
+                if (CheckIfBulletKillsTarget(enemyTarget.GetComponentInChildren<Health>().GetCurrentHealth()))
+                    gameManagerScript.enemyDestroyed(enemyTarget, this.transform.parent.parent.gameObject);
                 GameObject bulletObject = Instantiate(bullet);
                 bulletObject.transform.SetParent(bulletSpawner);
                 bulletObject.transform.localPosition = Vector3.zero;
                 bulletObject.transform.localScale = new Vector3(.2f, .2f, .5f);
+                
                 bulletObject.GetComponent<BasicBulletMovementScript>().targetEnemy(enemyTarget.transform);
                 bulletObject.GetComponent<DamageScript>().setDamage(this);
                 bulletObject.GetComponent<DamageScript>().SetTargetObject(enemyTarget);
@@ -60,6 +65,9 @@ public class ShootScript : MonoBehaviour
     public void enemyTargeted(GameObject enemy)
     {
         enemyTarget = enemy;
+        if(CheckIfBulletKillsTarget(enemyTarget.GetComponentInChildren<Health>().GetCurrentHealth()))
+               gameManagerScript.enemyDestroyed(enemyTarget, this.transform.parent.parent.gameObject);
+
         hasATarget = true;
     }
 
@@ -84,5 +92,16 @@ public class ShootScript : MonoBehaviour
     public float getDamage()
     {
         return this.damage;
+    }
+
+    private bool CheckIfBulletKillsTarget(int health)
+    {
+        Debug.Log(health + " - " + damage + " = " + (health - damage));
+        if (health + damage > 0)
+            return false;
+
+        Debug.Log("Bullet kills target");
+
+        return true;
     }
 }

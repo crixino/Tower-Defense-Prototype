@@ -36,6 +36,14 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    public void enemyDestroyed(GameObject enemy, GameObject troop)
+    {
+        for (int i = 0; i < troops.Count; i++)
+        {
+            if (troops[i] != troop)
+                troops[i].GetComponentInChildren<DetectEnemyScript>().enemyDestroyed(enemy);
+        }
+    }
     public void OnCancelTroopSelection()
     {
         this.GetComponent<GridClickedScript>().troopDeselect();

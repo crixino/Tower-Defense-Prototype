@@ -40,9 +40,13 @@ public class Health : MonoBehaviour
         if(other.tag == "Bullet" && other.gameObject.GetComponent<DamageScript>().getTargetObject() == this.gameObject)
         {
             ModifyHealth((int)other.GetComponent<DamageScript>().getDamage());
-            
 
             Destroy(other.gameObject);
         }
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
