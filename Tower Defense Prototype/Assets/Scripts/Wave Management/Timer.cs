@@ -60,6 +60,12 @@ public class Timer : MonoBehaviour
     {
         TimerOn = true;
     }
+    public void StopTimer()
+    {
+        TimerOn = false;
+        timeLeft = -1;
+        UpdateTimer(timeLeft);
+    }
 
     public void ResetTimer()
     {

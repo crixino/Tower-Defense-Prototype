@@ -41,8 +41,12 @@ public class WaveUI : MonoBehaviour
             if (waveUIParent.GetComponent<RectTransform>().localPosition.x > -50 && waveIndex + 1 != waveUIParent.transform.childCount)
             {
                 waveUIParent.GetComponent<RectTransform>().localPosition -= increaseValues * Time.deltaTime;
-            }else
+            }
+            else if(waveIndex + 1 == waveUIParent.transform.childCount)
+            {
                 this.GetComponent<WaveManager>().SetIsLastWave(true);
+                this.startWaves = false;
+            }
         }
     }
 
