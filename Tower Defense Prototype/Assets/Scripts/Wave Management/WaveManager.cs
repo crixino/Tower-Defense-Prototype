@@ -6,6 +6,7 @@ public class WaveManager : MonoBehaviour
 {
     private Timer timer;
     private WaveUI waveUI;
+    private SpawnManager spawnManager;
 
     private bool wavesStarted = false;
     private bool isLastWave = false;
@@ -15,6 +16,7 @@ public class WaveManager : MonoBehaviour
     {
         timer = this.GetComponent<Timer>();
         waveUI = this.GetComponent<WaveUI>();
+        spawnManager = this.GetComponent<SpawnManager>();
 
         waveUI.CalculateWaveUISpeed(timer.GetTime());
     }
@@ -65,6 +67,7 @@ public class WaveManager : MonoBehaviour
         {
             NextWave();
         }
+        spawnManager.WaveStarted();
     }
 
 }
