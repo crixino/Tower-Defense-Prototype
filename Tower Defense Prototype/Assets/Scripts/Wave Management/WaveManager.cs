@@ -35,6 +35,7 @@ public class WaveManager : MonoBehaviour
             waveUI.CalculateWaveUISpeed(timer.GetTime());
             waveUI.NextWaveUI();
             timer.StartTimer();
+            spawnManager.WaveStarted();
         }
     }
 
@@ -43,6 +44,7 @@ public class WaveManager : MonoBehaviour
         waveUI.CalculateWaveUISpeed(timer.GetTime());
         timer.StartTimer();
         waveUI.StartWaves();
+        spawnManager.WaveStarted();
         wavesStarted = true;
     }
 
@@ -67,7 +69,7 @@ public class WaveManager : MonoBehaviour
         {
             NextWave();
         }
-        spawnManager.WaveStarted();
+        
     }
 
 }

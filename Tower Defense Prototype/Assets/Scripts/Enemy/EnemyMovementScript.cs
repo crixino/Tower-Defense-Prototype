@@ -13,6 +13,7 @@ public class EnemyMovementScript : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
         goal = GameObject.FindGameObjectWithTag("Goal").transform;
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        agent.speed = 1.6f;
         agent.destination = new Vector3(this.transform.position.x, goal.position.y, goal.position.z);
     }
 

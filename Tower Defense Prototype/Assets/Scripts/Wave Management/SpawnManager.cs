@@ -39,7 +39,7 @@ public class SpawnManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab);
         Debug.Log("Spawnpoint: " + spawnPoint);
         enemy.transform.SetParent(parent[GetSpawnPoint()]);
-        enemy.transform.position = new Vector3(0, 0, 0);
+        enemy.transform.localPosition = new Vector3(0, 0, 0);
         spawnCount++;
     }
 
