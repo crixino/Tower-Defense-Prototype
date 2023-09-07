@@ -11,6 +11,9 @@ public class WaveManager : MonoBehaviour
     private bool wavesStarted = false;
     private bool isLastWave = false;
 
+    private int numberOfWaves = 10;
+    private int currentWave = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,7 @@ public class WaveManager : MonoBehaviour
         if (!isLastWave)
         {
             timer.ResetTimer();
+            spawnManager.AddNextWaveToList(currentWave);
             waveUI.CalculateWaveUISpeed(timer.GetTime());
             waveUI.NextWaveUI();
             timer.StartTimer();
@@ -42,6 +46,7 @@ public class WaveManager : MonoBehaviour
     public void StartWaves()
     {
         waveUI.CalculateWaveUISpeed(timer.GetTime());
+        spawnManager.AddNextWaveToList(currentWave);
         timer.StartTimer();
         waveUI.StartWaves();
         spawnManager.WaveStarted();
@@ -65,11 +70,18 @@ public class WaveManager : MonoBehaviour
         if(!wavesStarted)
         {
             StartWaves();
+            currentWave++;
         } else
         {
             NextWave();
+            currentWave++;
         }
         
+    }
+
+    public int GetNumberOfWaves()
+    {
+        return this.numberOfWaves;
     }
 
 }
