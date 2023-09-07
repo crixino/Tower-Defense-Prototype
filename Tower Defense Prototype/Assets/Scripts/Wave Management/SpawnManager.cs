@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private List<Wave> waves = new List<Wave>();
+    private List<Wave> activeWaves = new List<Wave>();
+    private EnemyDatabase enemyDatabase;
+
     private string enemyPrefabLocation = "Prefabs/Enemy";
     [SerializeField]
     private Transform[] parent;
 
-    private GameObject enemyPrefab;
-
     private int spawnPoint = 0;
-
-    private int enemiesToSpawn = 7;
-    private int spawnCount = 0;
     private bool waveEnded = true;
     private float spawnSpeed = 1f;
 
@@ -22,7 +21,8 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyPrefab = Resources.Load(enemyPrefabLocation) as GameObject;
+        enemyDatabase = GetComponent<EnemyDatabase>();
+        CreateWaves();
 
         spawning = Spawning();
         StartCoroutine(spawning);
@@ -36,11 +36,15 @@ public class SpawnManager : MonoBehaviour
 
     public void spawnPrefab()
     {
-        GameObject enemy = Instantiate(enemyPrefab);
-        Debug.Log("Spawnpoint: " + spawnPoint);
-        enemy.transform.SetParent(parent[GetSpawnPoint()]);
-        enemy.transform.localPosition = new Vector3(0, 0, 0);
-        spawnCount++;
+        GameObject enemy;
+        foreach (Wave wave in activeWaves)
+        {
+            enemy = Instantiate(Resources.Load(wave.GetEnemyPrefabLocation()) as GameObject);
+            enemy.GetComponentInChildren<EnemyMovementScript>().SetEnemyMovementSpeed(wave.GetEnemystats().GetMovementSpeed());
+            enemy.GetComponentInChildren<Health>().SetMaxHealth(wave.GetEnemystats().GetHealth());
+            enemy.transform.SetParent(parent[GetSpawnPoint()]);
+            enemy.transform.localPosition = new Vector3(0, 0, 0);
+        }
     }
 
     private int GetSpawnPoint()
@@ -62,9 +66,8 @@ public class SpawnManager : MonoBehaviour
             {
                 spawnPrefab();
 
-                if(spawnCount == enemiesToSpawn)
+                if(activeWaves.Count == 0)
                 {
-                    spawnCount = 0;
                     waveEnded = true;
                 }
 
@@ -78,5 +81,20 @@ public class SpawnManager : MonoBehaviour
     public void WaveStarted()
     {
         waveEnded = false;
+    }
+
+    public void AddNextWaveToList(int currentWave)
+    {
+        activeWaves.Add(waves[currentWave]);
+    }
+
+    private void CreateWaves()
+    {
+        Wave wave;
+        for(int i = 0; i < this.GetComponent<WaveManager>().GetNumberOfWaves(); i++)
+        {
+            wave = new Wave(enemyDatabase.GetEnemy(i), 7);
+            waves.Add(wave);
+        }
     }
 }

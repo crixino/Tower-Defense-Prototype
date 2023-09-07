@@ -49,4 +49,10 @@ public class Health : MonoBehaviour
     {
         return currentHealth;
     }
+
+    public void SetMaxHealth(int maxHealth)
+    {
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
+    }
 }

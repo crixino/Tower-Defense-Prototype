@@ -7,13 +7,13 @@ public class EnemyMovementScript : MonoBehaviour
 {
     private Transform goal;
     private GameObject gameManager;
+    private NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("Game Manager");
         goal = GameObject.FindGameObjectWithTag("Goal").transform;
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        agent.speed = 1.6f;
+        agent = GetComponent<NavMeshAgent>();
         agent.destination = new Vector3(this.transform.position.x, goal.position.y, goal.position.z);
     }
 
@@ -30,5 +30,10 @@ public class EnemyMovementScript : MonoBehaviour
     {
             gameManager.GetComponent<GameManagerScript>().enemyDestroyed(this.gameObject);
             Destroy(this.transform.parent.gameObject);
+    }
+
+    public void SetEnemyMovementSpeed(float speed)
+    {
+        agent.speed = speed;
     }
 }

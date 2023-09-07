@@ -8,6 +8,10 @@ public class WaveUI : MonoBehaviour
 {
     [SerializeField]
     private GameObject waveUIParent;
+    [SerializeField]
+    private GameObject waveUIPrefab;
+
+    private WaveManager waveManager;
 
     [SerializeField]
     Vector3 increaseValues;
@@ -24,8 +28,9 @@ public class WaveUI : MonoBehaviour
     void Start()
     {
         defaultValue = waveUIParent.transform.localPosition;
+        waveManager = GetComponent<WaveManager>();
 
-        SetWaveUINumbers();
+        CreateWaveUI();
     }
 
     // Update is called once per frame
@@ -44,7 +49,7 @@ public class WaveUI : MonoBehaviour
             }
             else if(waveIndex + 1 == waveUIParent.transform.childCount)
             {
-                this.GetComponent<WaveManager>().SetIsLastWave(true);
+                this.waveManager.SetIsLastWave(true);
                 this.startWaves = false;
             }
         }
@@ -73,11 +78,32 @@ public class WaveUI : MonoBehaviour
         startWaves = true;
     }
 
-    private void SetWaveUINumbers()
+    public void CreateWaveUI()
     {
-        for(int i = 0; i <  waveUIParent.transform.childCount; i++)
+        GameObject waveUI;
+        for(int i = 0; i < waveManager.GetNumberOfWaves(); i++)
         {
-            waveUIParent.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text = "" + (i+1);
+            waveUI = Instantiate(waveUIPrefab);
+            waveUI.transform.SetParent(waveUIParent.transform);
+            
+            SetWaveUIColor(waveUI, i);
+            SetWaveUINumber(waveUI, i + 1);
         }
+    }
+
+    private void SetWaveUINumber(GameObject wave, int waveNumber)
+    {
+        wave.GetComponentInChildren<TextMeshProUGUI>().text = "" + waveNumber;
+    }
+
+    private void SetWaveUIColor(GameObject wave, int waveNumber)
+    {
+        if (waveNumber % 2 == 0)
+        {
+            wave.GetComponent<Image>().color = Color.black;
+            wave.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        }
+        else
+            wave.GetComponent<Image>().color = Color.white;
     }
 }
