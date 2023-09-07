@@ -27,4 +27,9 @@ public class Wave
     {
         return enemyStats;
     }
+
+    public int GetEnemiesLeft()
+    {
+        return enemiesLeft;
+    }
 }

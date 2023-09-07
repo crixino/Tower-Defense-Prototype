@@ -40,6 +40,7 @@ public class WaveManager : MonoBehaviour
             waveUI.NextWaveUI();
             timer.StartTimer();
             spawnManager.WaveStarted();
+            currentWave++;
         }
     }
 
@@ -51,6 +52,7 @@ public class WaveManager : MonoBehaviour
         waveUI.StartWaves();
         spawnManager.WaveStarted();
         wavesStarted = true;
+        currentWave++;
     }
 
     public void SetIsLastWave(bool isLastWave)
@@ -70,11 +72,9 @@ public class WaveManager : MonoBehaviour
         if(!wavesStarted)
         {
             StartWaves();
-            currentWave++;
         } else
         {
             NextWave();
-            currentWave++;
         }
         
     }

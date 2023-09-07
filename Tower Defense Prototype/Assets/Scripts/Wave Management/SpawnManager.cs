@@ -37,14 +37,22 @@ public class SpawnManager : MonoBehaviour
     public void spawnPrefab()
     {
         GameObject enemy;
+        List<Wave> removeWaves = new List<Wave>();
         foreach (Wave wave in activeWaves)
         {
+            //Debug.Log("Wave " + wave.GetEnemystats().GetEnemyID() + " Enemy Name: " + wave.GetEnemystats().GetEnemyName());
             enemy = Instantiate(Resources.Load(wave.GetEnemyPrefabLocation()) as GameObject);
-            enemy.GetComponentInChildren<EnemyMovementScript>().SetEnemyMovementSpeed(wave.GetEnemystats().GetMovementSpeed());
-            enemy.GetComponentInChildren<Health>().SetMaxHealth(wave.GetEnemystats().GetHealth());
+            
             enemy.transform.SetParent(parent[GetSpawnPoint()]);
             enemy.transform.localPosition = new Vector3(0, 0, 0);
+            enemy.GetComponentInChildren<EnemyMovementScript>().SetEnemyMovementSpeed(wave.GetEnemystats().GetMovementSpeed());
+            enemy.GetComponentInChildren<Health>().SetMaxHealth(wave.GetEnemystats().GetHealth());
+            if(wave.GetEnemiesLeft() <= 0)
+                removeWaves.Add(wave);
         }
+        foreach(Wave wave in removeWaves)
+            activeWaves.Remove(wave);
+
     }
 
     private int GetSpawnPoint()
@@ -85,6 +93,7 @@ public class SpawnManager : MonoBehaviour
 
     public void AddNextWaveToList(int currentWave)
     {
+        Debug.Log("currentWave: " + currentWave);
         activeWaves.Add(waves[currentWave]);
     }
 
@@ -96,5 +105,16 @@ public class SpawnManager : MonoBehaviour
             wave = new Wave(enemyDatabase.GetEnemy(i), 7);
             waves.Add(wave);
         }
+    }
+
+    private void Debug_ListOfWaves()
+    {
+        string result = "";
+        foreach(Wave wave in waves)
+        {
+            result = "Wave " + wave.GetEnemystats().GetEnemyID() + " Enemy Name: " + wave.GetEnemystats().GetEnemyName();
+            Debug.Log(result);
+        }
+        
     }
 }
