@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
 
     private string enemyPrefabLocation = "Prefabs/Enemy";
     [SerializeField]
-    private Transform[] parent;
+    private Transform parent;
 
     private int spawnPoint = 0;
     private bool waveEnded = true;
@@ -43,8 +43,8 @@ public class SpawnManager : MonoBehaviour
             //Debug.Log("Wave " + wave.GetEnemystats().GetEnemyID() + " Enemy Name: " + wave.GetEnemystats().GetEnemyName());
             enemy = Instantiate(Resources.Load(wave.GetEnemyPrefabLocation()) as GameObject);
             
-            enemy.transform.SetParent(parent[GetSpawnPoint()]);
-            enemy.transform.localPosition = new Vector3(0, 0, 0);
+            enemy.transform.SetParent(parent);
+            enemy.transform.localPosition = new Vector3(GetSpawnPoint(), 0, 0);
             enemy.GetComponentInChildren<EnemyMovementScript>().SetEnemyMovementSpeed(wave.GetEnemystats().GetMovementSpeed());
             enemy.GetComponentInChildren<Health>().SetMaxHealth(wave.GetEnemystats().GetHealth());
             if(wave.GetEnemiesLeft() <= 0)
@@ -55,13 +55,17 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    private int GetSpawnPoint()
+    private float GetSpawnPoint()
     {
-        int result = spawnPoint;
+        float result = Random.Range(-1.3f, 1.3f);
+
+        /*int result = spawnPoint;
+
+        
         if (spawnPoint == 0)
             spawnPoint++;
         else
-            spawnPoint--;
+            spawnPoint--;*/
 
         return result;
     }
