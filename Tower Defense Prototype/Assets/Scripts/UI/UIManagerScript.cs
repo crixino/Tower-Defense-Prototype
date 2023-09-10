@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManagerScript : MonoBehaviour
 {
@@ -21,11 +23,22 @@ public class UIManagerScript : MonoBehaviour
 
     public void disableCancelTroopSelectionObject()
     {
+        if(cancelTroopSelectionObject != null)
         cancelTroopSelectionObject.SetActive(false);
     }
 
     public void enableCancelTroopSelectionObject()
     {
         cancelTroopSelectionObject.SetActive(true);
+    }
+
+    public void MainMenuPlayBtn_Clicked()
+    {
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("MainMenuScene"));
+    }
+
+    public void QuitToDesktopBtn_Clicked()
+    {
+        Application.Quit();
     }
 }
